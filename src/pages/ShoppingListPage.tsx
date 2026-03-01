@@ -54,13 +54,13 @@ export default function ShoppingListPage() {
               return (
                 <div
                   key={recipe.id}
-                  className={`border rounded-lg p-3 transition-colors ${
+                  onClick={() => toggleRecipe(recipe.id, recipe.servings)}
+                  className={`border rounded-lg p-3 transition-colors cursor-pointer ${
                     isSelected ? 'border-indigo-300 bg-indigo-50' : 'border-gray-200'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => toggleRecipe(recipe.id, recipe.servings)}
+                    <div
                       className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 ${
                         isSelected ? 'bg-indigo-600 border-indigo-600' : 'border-gray-300'
                       }`}
@@ -70,10 +70,10 @@ export default function ShoppingListPage() {
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       )}
-                    </button>
+                    </div>
                     <span className="flex-1 text-sm font-medium text-gray-900">{recipe.name}</span>
                     {isSelected && (
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
                         <label className="text-xs text-gray-500">Portions:</label>
                         <input
                           type="number"
