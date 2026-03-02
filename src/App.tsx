@@ -4,6 +4,8 @@ import RecipeListPage from './pages/RecipeListPage'
 import RecipeFormPage from './pages/RecipeFormPage'
 import RecipeDetailPage from './pages/RecipeDetailPage'
 import ShoppingListPage from './pages/ShoppingListPage'
+import IngredientsPage from './pages/IngredientsPage'
+import PantryPage from './pages/PantryPage'
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
           <Route path="/recipes/:id" element={<RecipeDetailPage />} />
           <Route path="/recipes/:id/edit" element={<RecipeFormPage />} />
           <Route path="/shopping-list" element={<ShoppingListPage />} />
+          <Route path="/ingredients" element={<IngredientsPage />} />
+          <Route path="/pantry" element={<PantryPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
