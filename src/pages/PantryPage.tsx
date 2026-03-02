@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useIngredients } from '../hooks/useIngredients'
 import { usePantry } from '../hooks/usePantry'
+import { useVibeFilter } from '../hooks/useVibeFilter'
+import VibeChips from '../components/VibeChips'
 
 export default function PantryPage() {
   const { ingredients } = useIngredients()
-  const { toggle, has, matches, loading, maxMissing, setMaxMissing } = usePantry()
+  const { toggle, has, getMatches, loading, maxMissing, setMaxMissing } = usePantry()
+  const { selectedVibes, toggleVibe, clearVibes } = useVibeFilter()
   const [search, setSearch] = useState('')
+
+  const matches = useMemo(() => getMatches(selectedVibes), [getMatches, selectedVibes])
 
   const filteredIngredients = search
     ? ingredients.filter(i => i.name.toLowerCase().includes(search.toLowerCase()))
@@ -86,6 +91,8 @@ export default function PantryPage() {
         <h3 className="text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">
           Recipes you can make
         </h3>
+
+        <VibeChips selectedVibes={selectedVibes} onToggle={toggleVibe} onClear={clearVibes} />
 
         {sortedMissingCounts.length === 0 ? (
           <p className="text-sm text-gray-400 py-4 text-center">

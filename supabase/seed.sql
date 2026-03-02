@@ -579,3 +579,131 @@ insert into recipe_ingredients (recipe_id, ingredient_id, name, quantity, unit) 
   ('b0000000-0000-0000-0000-000000000032', 'a0000000-0000-0000-0000-000000000022', 'Mixed herbs',              1, 'tsp'),
   ('b0000000-0000-0000-0000-000000000032', 'a0000000-0000-0000-0000-000000000019', 'Salt',                     1, 'tsp'),
   ('b0000000-0000-0000-0000-000000000032', 'a0000000-0000-0000-0000-000000000020', 'Black pepper',             1, 'tsp');
+
+-- Recipe vibes
+insert into recipe_vibes (recipe_id, vibe) values
+  -- 1. Shepherd's Pie: comfort, pie, classic-combo
+  ('b0000000-0000-0000-0000-000000000001', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000001', 'pie'),
+  ('b0000000-0000-0000-0000-000000000001', 'classic-combo'),
+  -- 2. Lasagna: comfort, pasta
+  ('b0000000-0000-0000-0000-000000000002', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000002', 'pasta'),
+  -- 3. Spaghetti Bolognese: comfort, pasta, classic-combo, quick
+  ('b0000000-0000-0000-0000-000000000003', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000003', 'pasta'),
+  ('b0000000-0000-0000-0000-000000000003', 'classic-combo'),
+  ('b0000000-0000-0000-0000-000000000003', 'quick'),
+  -- 4. Chicken Stir Fry: quick, stir-fry, classic-combo
+  ('b0000000-0000-0000-0000-000000000004', 'quick'),
+  ('b0000000-0000-0000-0000-000000000004', 'stir-fry'),
+  ('b0000000-0000-0000-0000-000000000004', 'classic-combo'),
+  -- 5. Bangers and Mash: comfort, classic-combo
+  ('b0000000-0000-0000-0000-000000000005', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000005', 'classic-combo'),
+  -- 6. Chilli Con Carne: spicy, comfort, one-pot
+  ('b0000000-0000-0000-0000-000000000006', 'spicy'),
+  ('b0000000-0000-0000-0000-000000000006', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000006', 'one-pot'),
+  -- 7. Chicken Tikka Masala: curry, spicy, classic-combo
+  ('b0000000-0000-0000-0000-000000000007', 'curry'),
+  ('b0000000-0000-0000-0000-000000000007', 'spicy'),
+  ('b0000000-0000-0000-0000-000000000007', 'classic-combo'),
+  -- 8. Toad in the Hole: comfort
+  ('b0000000-0000-0000-0000-000000000008', 'comfort'),
+  -- 9. Roast Chicken Dinner: roast, comfort, classic-combo
+  ('b0000000-0000-0000-0000-000000000009', 'roast'),
+  ('b0000000-0000-0000-0000-000000000009', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000009', 'classic-combo'),
+  -- 10. Fish Pie: comfort, pie
+  ('b0000000-0000-0000-0000-000000000010', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000010', 'pie'),
+  -- 11. Chicken Fajitas: quick, spicy
+  ('b0000000-0000-0000-0000-000000000011', 'quick'),
+  ('b0000000-0000-0000-0000-000000000011', 'spicy'),
+  -- 12. Macaroni Cheese: comfort, pasta, vegetarian
+  ('b0000000-0000-0000-0000-000000000012', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000012', 'pasta'),
+  ('b0000000-0000-0000-0000-000000000012', 'vegetarian'),
+  -- 13. Beef Stew: comfort, one-pot
+  ('b0000000-0000-0000-0000-000000000013', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000013', 'one-pot'),
+  -- 14. Sausage Casserole: comfort, one-pot
+  ('b0000000-0000-0000-0000-000000000014', 'comfort'),
+  ('b0000000-0000-0000-0000-000000000014', 'one-pot'),
+  -- 15. Carbonara: pasta, quick
+  ('b0000000-0000-0000-0000-000000000015', 'pasta'),
+  ('b0000000-0000-0000-0000-000000000015', 'quick'),
+  -- 16. Jacket Potato with Beans and Cheese: quick, vegetarian, comfort
+  ('b0000000-0000-0000-0000-000000000016', 'quick'),
+  ('b0000000-0000-0000-0000-000000000016', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000016', 'comfort'),
+  -- 17. Vegetable Curry: vegetarian, vegan, curry, spicy
+  ('b0000000-0000-0000-0000-000000000017', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000017', 'vegan'),
+  ('b0000000-0000-0000-0000-000000000017', 'curry'),
+  ('b0000000-0000-0000-0000-000000000017', 'spicy'),
+  -- 18. Mushroom Risotto: vegetarian, comfort
+  ('b0000000-0000-0000-0000-000000000018', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000018', 'comfort'),
+  -- 19. Veggie Chilli: vegetarian, vegan, spicy, one-pot
+  ('b0000000-0000-0000-0000-000000000019', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000019', 'vegan'),
+  ('b0000000-0000-0000-0000-000000000019', 'spicy'),
+  ('b0000000-0000-0000-0000-000000000019', 'one-pot'),
+  -- 20. Cauliflower Cheese: vegetarian, comfort
+  ('b0000000-0000-0000-0000-000000000020', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000020', 'comfort'),
+  -- 21. Mushroom Stroganoff: vegetarian, quick, comfort
+  ('b0000000-0000-0000-0000-000000000021', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000021', 'quick'),
+  ('b0000000-0000-0000-0000-000000000021', 'comfort'),
+  -- 22. Spinach and Ricotta Cannelloni: vegetarian, pasta, comfort
+  ('b0000000-0000-0000-0000-000000000022', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000022', 'pasta'),
+  ('b0000000-0000-0000-0000-000000000022', 'comfort'),
+  -- 23. Vegetable Stir Fry: vegetarian, vegan, quick, stir-fry
+  ('b0000000-0000-0000-0000-000000000023', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000023', 'vegan'),
+  ('b0000000-0000-0000-0000-000000000023', 'quick'),
+  ('b0000000-0000-0000-0000-000000000023', 'stir-fry'),
+  -- 24. Red Lentil Dhal: vegetarian, vegan, curry, spicy
+  ('b0000000-0000-0000-0000-000000000024', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000024', 'vegan'),
+  ('b0000000-0000-0000-0000-000000000024', 'curry'),
+  ('b0000000-0000-0000-0000-000000000024', 'spicy'),
+  -- 25. Halloumi and Veg Traybake: vegetarian, quick, roast
+  ('b0000000-0000-0000-0000-000000000025', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000025', 'quick'),
+  ('b0000000-0000-0000-0000-000000000025', 'roast'),
+  -- 26. Cheese and Onion Pie: vegetarian, pie, comfort
+  ('b0000000-0000-0000-0000-000000000026', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000026', 'pie'),
+  ('b0000000-0000-0000-0000-000000000026', 'comfort'),
+  -- 27. Pasta Primavera: vegetarian, pasta, quick
+  ('b0000000-0000-0000-0000-000000000027', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000027', 'pasta'),
+  ('b0000000-0000-0000-0000-000000000027', 'quick'),
+  -- 28. Veggie Fajitas: vegetarian, vegan, quick, spicy
+  ('b0000000-0000-0000-0000-000000000028', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000028', 'vegan'),
+  ('b0000000-0000-0000-0000-000000000028', 'quick'),
+  ('b0000000-0000-0000-0000-000000000028', 'spicy'),
+  -- 29. Sweet Potato and Chickpea Curry: vegetarian, vegan, curry, spicy, one-pot
+  ('b0000000-0000-0000-0000-000000000029', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000029', 'vegan'),
+  ('b0000000-0000-0000-0000-000000000029', 'curry'),
+  ('b0000000-0000-0000-0000-000000000029', 'spicy'),
+  ('b0000000-0000-0000-0000-000000000029', 'one-pot'),
+  -- 30. Vegetable Lasagna: vegetarian, pasta, comfort
+  ('b0000000-0000-0000-0000-000000000030', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000030', 'pasta'),
+  ('b0000000-0000-0000-0000-000000000030', 'comfort'),
+  -- 31. Aubergine Parmigiana: vegetarian, comfort
+  ('b0000000-0000-0000-0000-000000000031', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000031', 'comfort'),
+  -- 32. Bean and Vegetable Soup: vegetarian, vegan, soup, one-pot
+  ('b0000000-0000-0000-0000-000000000032', 'vegetarian'),
+  ('b0000000-0000-0000-0000-000000000032', 'vegan'),
+  ('b0000000-0000-0000-0000-000000000032', 'soup'),
+  ('b0000000-0000-0000-0000-000000000032', 'one-pot');

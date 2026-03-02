@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Recipe } from '../lib/types'
+import { mapVibes } from '../lib/mapVibes'
 
 export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -10,9 +11,9 @@ export function useRecipes() {
     setLoading(true)
     const { data } = await supabase
       .from('recipes')
-      .select('*')
+      .select('*, recipe_vibes(vibe)')
       .order('created_at', { ascending: false })
-    setRecipes(data ?? [])
+    setRecipes((data ?? []).map(mapVibes))
     setLoading(false)
   }
 

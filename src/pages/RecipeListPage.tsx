@@ -1,9 +1,21 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecipes } from '../hooks/useRecipes'
+import { useVibeFilter } from '../hooks/useVibeFilter'
 import RecipeCard from '../components/RecipeCard'
+import VibeChips from '../components/VibeChips'
 
 export default function RecipeListPage() {
   const { recipes, loading } = useRecipes()
+  const { selectedVibes, toggleVibe, clearVibes } = useVibeFilter()
+
+  const filtered = useMemo(() => {
+    if (selectedVibes.size === 0) return recipes
+    return recipes.filter(r => {
+      const vibes = r.vibes ?? []
+      return [...selectedVibes].every(v => vibes.includes(v))
+    })
+  }, [recipes, selectedVibes])
 
   if (loading) {
     return <div className="text-center text-gray-400 py-12">Loading...</div>
@@ -21,19 +33,25 @@ export default function RecipeListPage() {
         </Link>
       </div>
 
-      {recipes.length === 0 ? (
+      <VibeChips selectedVibes={selectedVibes} onToggle={toggleVibe} onClear={clearVibes} />
+
+      {filtered.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-gray-400 mb-4">No recipes yet</p>
-          <Link
-            to="/recipes/new"
-            className="text-indigo-600 font-medium hover:text-indigo-800"
-          >
-            Add your first recipe
-          </Link>
+          <p className="text-gray-400 mb-4">
+            {recipes.length === 0 ? 'No recipes yet' : 'No recipes match those vibes'}
+          </p>
+          {recipes.length === 0 && (
+            <Link
+              to="/recipes/new"
+              className="text-indigo-600 font-medium hover:text-indigo-800"
+            >
+              Add your first recipe
+            </Link>
+          )}
         </div>
       ) : (
         <div className="space-y-3">
-          {recipes.map(recipe => (
+          {filtered.map(recipe => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </div>

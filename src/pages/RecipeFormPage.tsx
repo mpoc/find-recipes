@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase'
 import { useRecipe } from '../hooks/useRecipe'
 import { useIngredients } from '../hooks/useIngredients'
 import IngredientList, { type IngredientFormData } from '../components/IngredientList'
+import { VIBES, VIBE_LABELS, type Vibe } from '../lib/types'
 
 export default function RecipeFormPage() {
   const { id } = useParams()
@@ -18,13 +19,24 @@ export default function RecipeFormPage() {
   const [ingredients, setIngredients] = useState<IngredientFormData[]>([
     { name: '', quantity: 0, unit: 'units' },
   ])
+  const [selectedVibes, setSelectedVibes] = useState<Set<Vibe>>(new Set())
   const [saving, setSaving] = useState(false)
+
+  const toggleVibe = (vibe: Vibe) => {
+    setSelectedVibes(prev => {
+      const next = new Set(prev)
+      if (next.has(vibe)) next.delete(vibe)
+      else next.add(vibe)
+      return next
+    })
+  }
 
   useEffect(() => {
     if (recipe) {
       setName(recipe.name)
       setDescription(recipe.description ?? '')
       setServings(recipe.servings)
+      setSelectedVibes(new Set(recipe.vibes ?? []))
       if (recipe.recipe_ingredients && recipe.recipe_ingredients.length > 0) {
         setIngredients(
           recipe.recipe_ingredients.map(ing => ({
@@ -60,6 +72,8 @@ export default function RecipeFormPage() {
       })
     )
 
+    const vibeRows = [...selectedVibes].map(vibe => ({ vibe }))
+
     if (isEdit && id) {
       await supabase
         .from('recipes')
@@ -73,6 +87,13 @@ export default function RecipeFormPage() {
         )
       }
 
+      await supabase.from('recipe_vibes').delete().eq('recipe_id', id)
+      if (vibeRows.length > 0) {
+        await supabase.from('recipe_vibes').insert(
+          vibeRows.map(v => ({ ...v, recipe_id: id }))
+        )
+      }
+
       navigate(`/recipes/${id}`)
     } else {
       const { data: newRecipe } = await supabase
@@ -81,10 +102,17 @@ export default function RecipeFormPage() {
         .select()
         .single()
 
-      if (newRecipe && ingredientRows.length > 0) {
-        await supabase.from('recipe_ingredients').insert(
-          ingredientRows.map(ing => ({ ...ing, recipe_id: newRecipe.id }))
-        )
+      if (newRecipe) {
+        if (ingredientRows.length > 0) {
+          await supabase.from('recipe_ingredients').insert(
+            ingredientRows.map(ing => ({ ...ing, recipe_id: newRecipe.id }))
+          )
+        }
+        if (vibeRows.length > 0) {
+          await supabase.from('recipe_vibes').insert(
+            vibeRows.map(v => ({ ...v, recipe_id: newRecipe.id }))
+          )
+        }
       }
 
       navigate(newRecipe ? `/recipes/${newRecipe.id}` : '/')
@@ -132,6 +160,29 @@ export default function RecipeFormPage() {
             placeholder="Optional description"
             rows={2}
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Vibes</label>
+          <div className="flex flex-wrap gap-1.5">
+            {VIBES.map(vibe => {
+              const active = selectedVibes.has(vibe)
+              return (
+                <button
+                  key={vibe}
+                  type="button"
+                  onClick={() => toggleVibe(vibe)}
+                  className={`text-xs font-medium px-2.5 py-1 rounded-full border transition-colors ${
+                    active
+                      ? 'bg-indigo-600 text-white border-indigo-600'
+                      : 'bg-white text-gray-600 border-gray-300 hover:border-indigo-300'
+                  }`}
+                >
+                  {VIBE_LABELS[vibe]}
+                </button>
+              )
+            })}
+          </div>
         </div>
 
         <div>

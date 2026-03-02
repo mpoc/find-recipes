@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Recipe } from '../lib/types'
+import { mapVibes } from '../lib/mapVibes'
 
 export function useRecipe(id: string | undefined) {
   const [recipe, setRecipe] = useState<Recipe | null>(null)
@@ -13,10 +14,10 @@ export function useRecipe(id: string | undefined) {
       setLoading(true)
       const { data } = await supabase
         .from('recipes')
-        .select('*, recipe_ingredients(*)')
+        .select('*, recipe_ingredients(*), recipe_vibes(vibe)')
         .eq('id', id)
         .single()
-      setRecipe(data)
+      setRecipe(data ? mapVibes(data) : null)
       setLoading(false)
     }
 

@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useRecipe } from '../hooks/useRecipe'
 import { supabase } from '../lib/supabase'
+import VibePills from '../components/VibePills'
 
 export default function RecipeDetailPage() {
   const { id } = useParams()
@@ -32,7 +33,12 @@ export default function RecipeDetailPage() {
 
       <h2 className="text-2xl font-bold text-gray-900 mb-1">{recipe.name}</h2>
       {recipe.description && (
-        <p className="text-gray-500 mb-4">{recipe.description}</p>
+        <p className="text-gray-500 mb-2">{recipe.description}</p>
+      )}
+      {recipe.vibes && recipe.vibes.length > 0 && (
+        <div className="mb-2">
+          <VibePills vibes={recipe.vibes} />
+        </div>
       )}
       <p className="text-sm text-gray-400 mb-6">
         {recipe.servings} serving{recipe.servings !== 1 ? 's' : ''}

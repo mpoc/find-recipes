@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
-import type { Recipe } from '../lib/types'
+import type { Recipe, Vibe } from '../lib/types'
+import { mapVibes } from '../lib/mapVibes'
 
 const STORAGE_KEY = 'pantry-items'
 
@@ -24,14 +25,14 @@ export function usePantry() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([...pantryIds]))
   }, [pantryIds])
 
-  // Fetch all recipes with ingredients
+  // Fetch all recipes with ingredients and vibes
   useEffect(() => {
     async function fetch() {
       const { data } = await supabase
         .from('recipes')
-        .select('*, recipe_ingredients(*)')
+        .select('*, recipe_ingredients(*), recipe_vibes(vibe)')
         .order('name')
-      setRecipes(data ?? [])
+      setRecipes((data ?? []).map(mapVibes))
       setLoading(false)
     }
     fetch()
@@ -48,11 +49,17 @@ export function usePantry() {
 
   const has = (ingredientId: string) => pantryIds.has(ingredientId)
 
-  // Compute recipe matches grouped by missing count
-  const matches: Map<number, RecipeMatch[]> = useMemo(() => {
+  // Compute recipe matches grouped by missing count, optionally filtered by vibes
+  const getMatches = useCallback((vibeFilter: Set<Vibe>): Map<number, RecipeMatch[]> => {
     const grouped = new Map<number, RecipeMatch[]>()
 
     for (const recipe of recipes) {
+      if (vibeFilter.size > 0) {
+        const recipeVibes = recipe.vibes ?? []
+        const hasAll = [...vibeFilter].every(v => recipeVibes.includes(v))
+        if (!hasAll) continue
+      }
+
       const ingredients = recipe.recipe_ingredients ?? []
       const missing = ingredients
         .filter(i => !i.ingredient_id || !pantryIds.has(i.ingredient_id))
@@ -73,5 +80,5 @@ export function usePantry() {
     return grouped
   }, [recipes, pantryIds, maxMissing])
 
-  return { pantryIds, toggle, has, matches, loading, maxMissing, setMaxMissing }
+  return { pantryIds, toggle, has, getMatches, loading, maxMissing, setMaxMissing }
 }
